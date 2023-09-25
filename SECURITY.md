@@ -40,7 +40,7 @@ CodeSonar is typically ran on a “once per release” sort of schedule.
 
 For more information about CodeSonar, visit https://www.grammatech.com/codesonar-cc.
 
-### Fuzz Testing
+### Fuzz Testings
 
 The application used to fuzzs test cFS and its results are not available to the public.
 
