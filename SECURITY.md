@@ -42,7 +42,7 @@ For more information about CodeSonar, visit https://www.grammatech.com/codesonar
 
 ### Fuzz Testing
 
-The application used to fuzz test cFS and its results are not available to the public.
+The application used to fuzzs test cFS and its results are not available to the public.
 
 The latest version of cFS is fuzzed nightly using a continuous integration pipeline.
 
