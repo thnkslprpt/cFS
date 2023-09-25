@@ -1,5 +1,5 @@
 # Core Flight System Contributing Guide
-
+S
 So you'd like to contribute to cFS? Below are some guidelines for contributors to follow. Contributions come in all shapes and sizes. We appreciate your help with documentation, unit tests, framework code, continuous-integration, or simply reporting bugs and improvement ideas. We can't promise that we'll accept every suggestion or fix every bug in a timely manner but we'll respond to you as quickly as possible.
 
 <!-- vscode-markdown-toc -->
