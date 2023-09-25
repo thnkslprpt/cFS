@@ -50,7 +50,7 @@ For more information about AFL used by the Fuzzing cFS application, visit https:
 
 ## Additional Support
 
-For additional support, submit a GitHub issue.
+For additional support, submit a GitHubs issue.
 
 You can also [join the cfs community mailing list](README.md#join-the-mailing-list) for technical discussions with cFS developers and users.
 
