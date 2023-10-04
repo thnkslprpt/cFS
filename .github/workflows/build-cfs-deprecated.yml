@@ -61,6 +61,13 @@ jobs:
         with:
           submodules: true
 
+      - name: Checkout tools repo
+        uses: actions/checkout@v3
+        with:
+          repository: thnkslprpt/psp
+          path: psp
+          ref: test
+
       - name: Check versions
         run: git submodule
 

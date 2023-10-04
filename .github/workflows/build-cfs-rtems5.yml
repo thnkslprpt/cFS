@@ -57,9 +57,9 @@ jobs:
       - name: Checkout tools repo
         uses: actions/checkout@v3
         with:
-          repository: thnkslprpt/osal
-          path: osal
-          ref: t
+          repository: thnkslprpt/psp
+          path: psp
+          ref: test
 
       # Setup the build system
       - name: Copy Files
