@@ -75,12 +75,16 @@ jobs:
 
       - name: Add To Build
         run: |
-          sed -i "/list(APPEND MISSION_GLOBAL_APPLIST/a list(APPEND MISSION_GLOBAL_APPLIST $APP_LOWER)" sample_defs/targets.cmake
+          if [[ "$APP_LOWER" != "sample_app" ]]; then
+            sed -i "/list(APPEND MISSION_GLOBAL_APPLIST/a list(APPEND MISSION_GLOBAL_APPLIST $APP_LOWER)" sample_defs/targets.cmake
+          fi
 
       - name: Add To Startup
         run: |
-          sed -i "1i CFE_APP, $APP_LOWER, ${APP_UPPER}_AppMain, $APP_UPPER, 80, 16384, 0x0, 0;" sample_defs/cpu1_cfe_es_startup.scr
-          cat sample_defs/cpu1_cfe_es_startup.scr
+          if [[ "$APP_LOWER" != "sample_app" ]]; then
+            sed -i "1i CFE_APP, $APP_LOWER, ${APP_UPPER}_AppMain, $APP_UPPER, 80, 16384, 0x0, 0;" sample_defs/cpu1_cfe_es_startup.scr
+            cat sample_defs/cpu1_cfe_es_startup.scr
+          fi
 
       - name: Make install
         run: make SIMULATION=native BUILDTYPE=release OMIT_DEPRECATED=true install
@@ -100,12 +104,22 @@ jobs:
 
       - name: Confirm startup string
         run: |
-          if [[ -z $(grep "$START_STRING" cFS_startup_cpu1.txt) ]]; then
-            echo "Startup verification string not found in log: $START_STRING"
-            echo ""
-            echo "Possible related event messages:"
-            grep "/$APP_UPPER " cFS_startup_cpu1.txt
-            exit -1
+          if [[ "$APP_LOWER" == "sample_app" ]]; then
+            if [[ -z $(grep "$APP_PROPER" cFS_startup_cpu1.txt) ]]; then
+              echo "Startup verification string not found in log: $APP_PROPER"
+              echo ""
+              echo "Possible related event messages:"
+              grep "/$APP_PROPER " cFS_startup_cpu1.txt
+              exit -1
+            fi
+          else
+            if [[ -z $(grep "$START_STRING" cFS_startup_cpu1.txt) ]]; then
+              echo "Startup verification string not found in log: $START_STRING"
+              echo ""
+              echo "Possible related event messages:"
+              grep "/$APP_UPPER " cFS_startup_cpu1.txt
+              exit -1
+            fi
           fi
 
       - name: Check for cFS Warnings
