@@ -8,7 +8,7 @@ A clear and concise description of what the contribution is.
 - Include explicitly what issue it addresses [e.g. Fixes #X]
 
 **Testing performed**
-Steps taken to test the contribution:
+Steps taken to test the contributions:
 1. Build steps '...'
 2. Execution steps '...'
 
