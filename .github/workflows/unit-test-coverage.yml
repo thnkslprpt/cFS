@@ -56,6 +56,7 @@ jobs:
         run: |
           echo "APP_UPPER=$(echo ${{ inputs.app-name }} | sed 's/[a-z]/\U&/g')" >> $GITHUB_ENV
           echo "APP_LOWER=$(echo ${{ inputs.app-name }} | sed 's/[A-Z]/\L&/g')" >> $GITHUB_ENV
+          echo "IS_SAMPLE_OR_LAB=$(echo ${{ inputs.app-name }} | grep -iqE 'sample|lab' && echo true || echo false)" >> $GITHUB_ENV
 
       - name: Checkout Bundle Main
         uses: actions/checkout@v4
@@ -75,7 +76,9 @@ jobs:
 
       - name: Add Repo To Build
         run: |
-          sed -i "/list(APPEND MISSION_GLOBAL_APPLIST/a list(APPEND MISSION_GLOBAL_APPLIST $APP_LOWER)" sample_defs/targets.cmake
+          if [[ "$IS_SAMPLE_OR_LAB" == "false" ]]; then
+            sed -i "/list(APPEND MISSION_GLOBAL_APPLIST/a list(APPEND MISSION_GLOBAL_APPLIST $APP_LOWER)" sample_defs/targets.cmake
+          fi
 
       - name: Make Prep
         run: make SIMULATION=native ENABLE_UNIT_TESTS=true OMIT_DEPRECATED=true prep
