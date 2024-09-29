@@ -5,7 +5,7 @@ on:
     inputs:
       # Optional inputs
       app-name:
-        description: Application name, if different from repo name
+        description: Application or library name, if different from repo name
         type: string
         required: false
         default: ${{ github.event.repository.name }}
@@ -53,6 +53,7 @@ jobs:
 
       - name: Set up environment variables
         # Apps typically use lowercase targets and uppercase names, this logic is fragile but works
+        # Also mark sample and lab apps/libraries as we don't need to add those to the build (they're part of the bundle already)
         run: |
           echo "APP_UPPER=$(echo ${{ inputs.app-name }} | sed 's/[a-z]/\U&/g')" >> $GITHUB_ENV
           echo "APP_LOWER=$(echo ${{ inputs.app-name }} | sed 's/[A-Z]/\L&/g')" >> $GITHUB_ENV
@@ -86,7 +87,7 @@ jobs:
       - name: Build app build dependencies
         run: make -C build/tools/elf2cfetbl
 
-      - name: Build app target
+      - name: Build app/library target
         run: |
           make -C build/native/default_cpu1/apps/$APP_LOWER
 
